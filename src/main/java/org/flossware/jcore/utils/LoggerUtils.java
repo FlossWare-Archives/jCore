@@ -16,6 +16,8 @@
  */
 package org.flossware.jcore.utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,14 +71,43 @@ import java.util.logging.Logger;
  * @author Scot P. Floess
  */
 public class LoggerUtils {
+    /**
+     * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
+     *
+     * @param logger    the logger to use.
+     * @param level     the level of the log.
+     * @param throwable the throwable to log with <code>str</code>.
+     * @param str       the format string.
+     * @param objs      a var arg thats converted to an object array for logging.
+     */
+    public static void log(final Logger logger, final Level level, final Throwable throwable, final String str, final Object... objs) {
+        final StringWriter sw = new StringWriter();
+        try (final PrintWriter pw = new PrintWriter(sw)) {
+            throwable.printStackTrace(pw);
+            final String toLog = StringUtils.concat(str, System.getProperty("line.separator"), sw.toString());
+            logger.log(level, toLog, objs);
+        }
+    }
+
+    /**
+     * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
+     *
+     * @param logger    the logger to use.
+     * @param level     the level of the log.
+     * @param throwable the throwable to log with <code>str</code>.
+     * @param str       the format string.
+     */
+    public static void log(final Logger logger, final Level level, final Throwable throwable, final String str) {
+        logger.log(level, str, throwable);
+    }
 
     /**
      * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
      *
      * @param logger the logger to use.
-     * @param level the level of the log.
-     * @param str the format string.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param level  the level of the log.
+     * @param str    the format string.
+     * @param objs   a var arg thats converted to an object array for logging.
      */
     public static void log(final Logger logger, final Level level, final String str, final Object... objs) {
         logger.log(level, str, objs);
@@ -85,11 +116,11 @@ public class LoggerUtils {
     /**
      * Log and return the value.
      *
-     * @param <V> the type of data to return.
+     * @param <V>    the type of data to return.
      *
      * @param logger the logger to use.
-     * @param level the level to log at.
-     * @param str the log string.
+     * @param level  the level to log at.
+     * @param str    the log string.
      * @param retVal the value to return.
      *
      * @return the object logged.
@@ -103,13 +134,13 @@ public class LoggerUtils {
     /**
      * Log and return the value thats found at <code>index</code> in the var arg <code>objs</code>.
      *
-     * @param <V> the type to return.
+     * @param <V>    the type to return.
      *
      * @param logger the logger to use.
-     * @param level the level of the log.
-     * @param str the format string.
-     * @param index the index into <code>objs</code> that is the return value.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param level  the level of the log.
+     * @param str    the format string.
+     * @param index  the index into <code>objs</code> that is the return value.
+     * @param objs   a var arg thats converted to an object array for logging.
      *
      * @return the value found at index <code>index</code> in the var args <code>objs</code>.
      */
@@ -122,12 +153,12 @@ public class LoggerUtils {
     /**
      * Log and return the value at found as the 0th index in the var args <code>objs</code>.
      *
-     * @param <V> the type to return.
+     * @param <V>    the type to return.
      *
      * @param logger the logger to use.
-     * @param level the level of the log.
-     * @param str the format string.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param level  the level of the log.
+     * @param str    the format string.
+     * @param objs   a var arg thats converted to an object array for logging.
      *
      * @return the value found at 0th index in the var args <code>objs</code>.
      */

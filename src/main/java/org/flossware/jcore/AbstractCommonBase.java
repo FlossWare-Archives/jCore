@@ -51,9 +51,34 @@ public abstract class AbstractCommonBase {
     /**
      * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
      *
+     * @param logger    the logger to use.
+     * @param level     the level of the log.
+     * @param throwable the throwable to log with <code>str</code>.
+     * @param str       the format string.
+     * @param objs      a var arg thats converted to an object array for logging.
+     */
+    protected void log(final Level level, final Throwable throwable, final String str, final Object... objs) {
+        LoggerUtils.log(getLogger(), level, throwable, str, objs);
+    }
+
+    /**
+     * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
+     *
+     * @param logger    the logger to use.
+     * @param level     the level of the log.
+     * @param throwable the throwable to log with <code>str</code>.
+     * @param str       the format string.
+     */
+    protected void log(final Level level, final Throwable throwable, final String str) {
+        LoggerUtils.log(getLogger(), level, str, throwable);
+    }
+
+    /**
+     * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
+     *
      * @param level the level of the log.
-     * @param str the format string.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param str   the format string.
+     * @param objs  a var arg thats converted to an object array for logging.
      */
     protected void log(final Level level, final String str, final Object... objs) {
         LoggerUtils.log(getLogger(), level, str, objs);
@@ -62,10 +87,10 @@ public abstract class AbstractCommonBase {
     /**
      * Log and return the value.
      *
-     * @param <V> the type of data to return.
+     * @param <V>    the type of data to return.
      *
-     * @param level the level to log at.
-     * @param str the log string.
+     * @param level  the level to log at.
+     * @param str    the log string.
      * @param retVal the value to return.
      *
      * @return the object logged.
@@ -76,14 +101,14 @@ public abstract class AbstractCommonBase {
 
     /**
      * Log and return the value thats found at <code>index</code> in the var arg <code>objs</code>. The "i" in LogFi stands for
- integer position. Without a unique name on this method, there is conflict in calling the logAndReturn() counterpart.
+     * integer position. Without a unique name on this method, there is conflict in calling the logAndReturn() counterpart.
      *
-     * @param <V> the type to return.
+     * @param <V>   the type to return.
      *
      * @param level the level of the log.
-     * @param str the format string.
+     * @param str   the format string.
      * @param index the index into <code>objs</code> that is the return value.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param objs  a var arg thats converted to an object array for logging.
      *
      * @return the value found at index <code>index</code> in the var args <code>objs</code>.
      */
@@ -94,11 +119,11 @@ public abstract class AbstractCommonBase {
     /**
      * Log and return the value at found as the 0th index in the var arg <code>objs</code>.
      *
-     * @param <V> the type to return.
+     * @param <V>   the type to return.
      *
      * @param level the level of the log.
-     * @param str the format string.
-     * @param objs a var arg thats converted to an object array for logging.
+     * @param str   the format string.
+     * @param objs  a var arg thats converted to an object array for logging.
      *
      * @return the value found at 0th index in the var args <code>objs</code>.
      */

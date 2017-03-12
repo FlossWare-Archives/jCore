@@ -47,7 +47,23 @@ public class AbstractCommonBaseTest {
      * Doesn't really test anything - just ensures we can log.
      */
     @Test
-    public void test_log() {
+    public void test_log_Logger_Level_Throwable_String_ObjectArray() {
+        new Stub().log(Level.WARNING, new RuntimeException("FOR A TEST"), "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
+    }
+
+    /**
+     * Doesn't really test anything - just ensures we can log.
+     */
+    @Test
+    public void test_log_Logger_Level_Throwable_String() {
+        new Stub().log(Level.SEVERE, new RuntimeException("FOR A TEST"), "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
+    }
+
+    /**
+     * Doesn't really test anything - just ensures we can log.
+     */
+    @Test
+    public void test_log_Logger_Level_String_ObjectArray() {
         new Stub().log(Level.SEVERE, "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
     }
 

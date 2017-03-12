@@ -46,7 +46,23 @@ public class LoggerUtilsTest {
      * Doesn't really test anything - just ensures we can log.
      */
     @Test
-    public void test_log() {
+    public void test_log_Logger_Level_Throwable_String_ObjectArray() {
+        LoggerUtils.log(LOGGER, Level.WARNING, new RuntimeException("FOR A TEST"), "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
+    }
+
+    /**
+     * Doesn't really test anything - just ensures we can log.
+     */
+    @Test
+    public void test_log_Logger_Level_Throwable_String() {
+        LoggerUtils.log(LOGGER, Level.SEVERE, new RuntimeException("FOR A TEST"), "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
+    }
+
+    /**
+     * Doesn't really test anything - just ensures we can log.
+     */
+    @Test
+    public void test_log_Logger_Level_String_ObjectArray() {
         LoggerUtils.log(LOGGER, Level.SEVERE, "This is a log {0} for {1}", TestUtils.generateUniqueStr("0"), TestUtils.generateUniqueStr("1"));
     }
 
