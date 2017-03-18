@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Scot P. Floess
+ * Copyright (C) 2017 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,50 +22,62 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests the ClassUtils utility class.
+ * Tests the PauseUtils utility class.
  *
  * @author Scot P. Floess
  */
-public class ClassUtilsTest {
+public class PauseUtilsTest {
     /**
      * Tests the constructor.
      */
     @Test
     public void testConstructor() throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        final Constructor constructor = ClassUtils.class.getDeclaredConstructor();
+        final Constructor constructor = PauseUtils.class.getDeclaredConstructor();
         constructor.setAccessible(true);
         constructor.newInstance(new Object[0]);
     }
 
     /**
-     * Tests retrieve a package name on a null class.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void test_getPackageName_null() {
-        ClassUtils.getPackageName(null);
-    }
-
-    /**
-     * Tests retrieving our package name.
+     * Test a pause.
      */
     @Test
-    public void test_getPackageName() {
-        Assert.assertEquals("Should be the same package name", ClassUtilsTest.class.getPackage().getName(), ClassUtils.getPackageName(ClassUtilsTest.class));
+    public void testPause() {
+        long startTime = System.currentTimeMillis();
+
+        int pauseTime = 250;
+
+        PauseUtils.pause(pauseTime);
+
+        Assert.assertTrue("Should have paused correct time", System.currentTimeMillis() >= startTime + pauseTime);
+
+        startTime = System.currentTimeMillis();
+
+        pauseTime = 500;
+
+        PauseUtils.pause(pauseTime);
+
+        Assert.assertTrue("Should have paused correct time", System.currentTimeMillis() >= startTime + pauseTime);
     }
 
     /**
-     * Tests getting the class of a null object.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void test_getClass_null() {
-        ClassUtils.getClass(null);
-    }
-
-    /**
-     * Tests retrieving our class.
+     * Test a random pause.
      */
     @Test
-    public void test_getClass() {
-        Assert.assertSame("Should be the same class", ClassUtilsTest.class, ClassUtils.getClass(new ClassUtilsTest()));
+    public void testRandomPause() {
+        long startTime = System.currentTimeMillis();
+
+        int pauseTime = 500;
+
+        PauseUtils.randomPause(pauseTime);
+
+        Assert.assertTrue("Should have paused correct time", System.currentTimeMillis() <= startTime + pauseTime);
+
+        startTime = System.currentTimeMillis();
+
+        pauseTime = 750;
+
+        PauseUtils.randomPause(pauseTime);
+
+        Assert.assertTrue("Should have paused correct time", System.currentTimeMillis() <= startTime + pauseTime);
     }
 }
