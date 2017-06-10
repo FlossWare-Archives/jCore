@@ -3,6 +3,7 @@ org.flossware.jcore
 org.flossware.jcore.collections
 org.flossware.jcore.collections.collection
 org.flossware.jcore.collections.map
+org.flossware.jcore.exception
 org.flossware.jcore.io
 org.flossware.jcore.operation
 org.flossware.jcore.soap
