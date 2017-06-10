@@ -70,7 +70,7 @@ import java.util.logging.Logger;
  *
  * @author Scot P. Floess
  */
-public class LoggerUtils {
+public final class LoggerUtils {
     /**
      * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
      *

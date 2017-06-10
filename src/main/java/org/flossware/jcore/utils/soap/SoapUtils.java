@@ -27,6 +27,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
@@ -43,7 +44,6 @@ import org.flossware.jcore.utils.StringUtils;
  * @author sfloess
  */
 public class SoapUtils {
-
     /**
      * Our logger.
      */
@@ -57,7 +57,6 @@ public class SoapUtils {
     private static Logger getLogger() {
         return logger;
     }
-
     /**
      * The default used to create OutputStream's.
      */
@@ -174,6 +173,8 @@ public class SoapUtils {
     /**
      * Set the URL to call on a web service.
      *
+     * @param <P>  the type of port.
+     *
      * @param port is the port for whom we want to set the web service url.
      * @param url  is the URL for the port.
      *
@@ -186,6 +187,51 @@ public class SoapUtils {
         LoggerUtils.log(getLogger(), Level.FINEST, "Setting url [{0}] on port [{1}]", url, port);
 
         ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        return port;
+    }
+
+    /**
+     * Create a port whose url is <code>url</code>
+     *
+     * @param <P>      the type of port to create.
+     *
+     * @param service  the service that can create it's port tye.
+     * @param portType the type of port for <code>service</code> to create.
+     * @param url      the actual URL the port should have set as.
+     *
+     * @return a usable port with URL set for calls.
+     */
+    public static <P> P createPort(final Service service, final Class portType, final String url) {
+        ObjectUtils.ensureObject(service, "Must probide a service!");
+        ObjectUtils.ensureObject(portType, "Must provide a port type!");
+        StringUtils.ensureString(url, "Must provide a URL!");
+
+        final P port = (P) setUrl(service.getPort(portType), url);
+
+        LoggerUtils.log(getLogger(), Level.FINE, "Port = [{0}]", port);
+
+        return port;
+    }
+
+    /**
+     * Create a usable session port including a URL and session id.
+     *
+     * @param <P>      the type of port to create.
+     *
+     * @param service  the service to call.
+     * @param portType used to retrieve a port from the service.
+     * @param url      the URL for the port.
+     * @param handler  the new handler to use.
+     *
+     * @return a usable port that has session id and URL set.
+     */
+    public static <P> P createPort(final Service service, final Class portType, final String url, final Handler handler) {
+        final P port = createPort(service, portType, url);
+
+        setHandler(port, handler);
+
+        LoggerUtils.log(getLogger(), Level.FINE, "Session Port = [{0}]", port);
 
         return port;
     }
@@ -230,7 +276,7 @@ public class SoapUtils {
      *
      * @param soapMsgContext the SOAP message context to convert.
      *
-     * @return the string representation of code>soapMsgContext</code>.
+     * @return the string representation of <code>soapMsgContext</code>.
      */
     public static String convertToString(final SOAPMessageContext soapMsgContext) {
         return convertToString(soapMsgContext.getMessage());
@@ -264,7 +310,8 @@ public class SoapUtils {
      * Log the <code>soapMessage</code> if the logger level is <code>level</code>.
      *
      * @param logger      the logger to use for logging.
-     * @param level       the log level that if <code>logger</code>'s level is equal, will log <code>message</code> and <code>soapMessage</code>
+     * @param level       the log level that if <code>logger</code>'s level is equal, will log <code>message</code> and
+     *                    <code>soapMessage</code>
      * @param message     the message to include in the log.
      * @param soapMessage the SOAP message to log.
      */
@@ -278,7 +325,8 @@ public class SoapUtils {
      * Log the <code>soapMsgContext</code> if the logger level is <code>level</code>.
      *
      * @param logger         the logger to use for logging.
-     * @param level          the log level that if <code>logger</code>'s level is equal, will log <code>message</code> and <code>soapMsgContext</code>
+     * @param level          the log level that if <code>logger</code>'s level is equal, will log <code>message</code> and
+     *                       <code>soapMsgContext</code>
      * @param message        the message to include in the log.
      * @param soapMsgContext the SOAP message context to log.
      */

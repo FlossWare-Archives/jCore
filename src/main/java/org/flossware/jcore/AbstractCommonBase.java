@@ -26,7 +26,6 @@ import org.flossware.jcore.utils.LoggerUtils;
  * @author Scot P. Floess
  */
 public abstract class AbstractCommonBase {
-
     /**
      * Our logger.
      */
@@ -51,7 +50,6 @@ public abstract class AbstractCommonBase {
     /**
      * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
      *
-     * @param logger    the logger to use.
      * @param level     the level of the log.
      * @param throwable the throwable to log with <code>str</code>.
      * @param str       the format string.
@@ -64,7 +62,6 @@ public abstract class AbstractCommonBase {
     /**
      * Performs a log using the var args <code>objs</code> as an array that can be presented to the logger.
      *
-     * @param logger    the logger to use.
      * @param level     the level of the log.
      * @param throwable the throwable to log with <code>str</code>.
      * @param str       the format string.
@@ -130,5 +127,4 @@ public abstract class AbstractCommonBase {
     protected <V> V logAndReturn(final Level level, final String str, final Object... objs) {
         return LoggerUtils.logAndReturn(getLogger(), level, str, objs);
     }
-
 }

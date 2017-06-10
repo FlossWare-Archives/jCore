@@ -26,17 +26,17 @@ import java.util.logging.Logger;
  *
  * @author Scot P. Floess
  */
-public class IOUtils {
+public class IoUtils {
 
     /**
      * Our logger.
      */
-    private static final Logger logger = Logger.getLogger(IOUtils.class.getName());
+    private static final Logger logger = Logger.getLogger(IoUtils.class.getName());
 
     /**
      * Default constructor not allowed.
      */
-    private IOUtils() {
+    private IoUtils() {
     }
 
     /**

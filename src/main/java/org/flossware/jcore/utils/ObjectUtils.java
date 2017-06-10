@@ -7,7 +7,7 @@ package org.flossware.jcore.utils;
  * @author sfloess
  *
  */
-public class ObjectUtils {
+public final class ObjectUtils {
 
     /**
      * Default error message when a parameter is bad.
@@ -17,9 +17,9 @@ public class ObjectUtils {
     /**
      * Checks <code>object</code> to ensureObject it is not null.
      *
-     * @param <V> the type of object we are ensuring is not null.
+     * @param <V>      the type of object we are ensuring is not null.
      *
-     * @param object The object to inspect to ensureObject its not null.
+     * @param object   The object to inspect to ensureObject its not null.
      * @param errorMsg The error message within the raised exception if <code>object</code> is null.
      *
      * @return object if it is not null.
@@ -37,7 +37,7 @@ public class ObjectUtils {
     /**
      * Checks <code>object</code> to ensureObject it is not null.
      *
-     * @param <V> the type of object we are ensuring is not null.
+     * @param <V>    the type of object we are ensuring is not null.
      *
      * @param object The object to inspect to ensureObject its not null.
      *

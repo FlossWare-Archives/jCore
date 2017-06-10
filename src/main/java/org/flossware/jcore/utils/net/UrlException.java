@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Scot P. Floess
+ * Copyright (C) 2014 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,19 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.flossware.jcore.io;
+package org.flossware.jcore.utils.net;
 
 /**
- * Raised if any problems arise dealing with a file.
+ * Raised if any problems arise dealing with URLs
  *
  * @author Scot P. Floess
  */
-public class FileException extends RuntimeException {
+public class UrlException extends RuntimeException {
 
     /**
      * Default constructor.
      */
-    public FileException() {
+    public UrlException() {
+
     }
 
     /**
@@ -34,7 +35,7 @@ public class FileException extends RuntimeException {
      *
      * @param message detail message.
      */
-    public FileException(final String message) {
+    public UrlException(final String message) {
         super(message);
     }
 
@@ -43,7 +44,7 @@ public class FileException extends RuntimeException {
      *
      * @param cause the cause of why self is being raised.
      */
-    public FileException(final Throwable cause) {
+    public UrlException(final Throwable cause) {
         super(cause);
     }
 
@@ -51,9 +52,9 @@ public class FileException extends RuntimeException {
      * Sets the cause of why self is raised and a message about it.
      *
      * @param message detail message.
-     * @param cause the cause of why self is being raised.
+     * @param cause   the cause of why self is being raised.
      */
-    public FileException(final String message, final Throwable cause) {
+    public UrlException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

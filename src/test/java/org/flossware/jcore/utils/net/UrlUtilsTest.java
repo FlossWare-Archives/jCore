@@ -19,8 +19,9 @@ package org.flossware.jcore.utils.net;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
-import org.flossware.jcore.io.UrlException;
+import org.flossware.jcore.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -72,47 +73,138 @@ public class UrlUtilsTest {
      */
     @Test
     public void test_createUrl() throws IOException {
-        Assert.assertNotNull("Should have created a url", UrlUtils.createUrl("http://foo.com"));
+        final URL toCompare = UrlUtils.createUrl("http://foo.com:50/foo");
+
+        Assert.assertNotNull("Should have created a url", toCompare);
+        Assert.assertEquals("Should be the correct protocol", "http", toCompare.getProtocol());
+        Assert.assertEquals("Should be the correct host", "foo.com", toCompare.getHost());
+        Assert.assertEquals("Should be the correct port", 50, toCompare.getPort());
+        Assert.assertEquals("Should be the correct path", "/foo", toCompare.getPath());
     }
 
     /**
-     * Tests computing the host URL with a null.
+     * Test computing a URL string with a null protocol.
      */
-    @Test(expected = UrlException.class)
-    public void test_computeHostUrlAsString_null() {
-        UrlUtils.computeHostUrlAsString(null);
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_protocol_null() {
+        UrlUtils.computeUrlString(null, TestUtils.generateUniqueStr());
     }
 
     /**
-     * Tests computing the host URL URL with an empty string.
+     * Test computing a URL string with a blank protocol.
      */
-    @Test(expected = UrlException.class)
-    public void test_computeHostUrlAsString_emptyString() {
-        UrlUtils.computeHostUrlAsString("");
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_protocol_blank() {
+        UrlUtils.computeUrlString("   ", TestUtils.generateUniqueStr());
     }
 
     /**
-     * Tests computing the host URL with a bad string.
+     * Test computing a URL string with an empty protocol.
      */
-    @Test(expected = UrlException.class)
-    public void test_computeHostUrlAsString_badString() {
-        UrlUtils.computeHostUrlAsString("ht://foo .com");
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_protocol_empty() {
+        UrlUtils.computeUrlString("", TestUtils.generateUniqueStr());
     }
 
     /**
-     * Test computing the host URL.
-     *
-     * @throws IOException
+     * Test computing a URL string with a null host.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_host_null() {
+        UrlUtils.computeUrlString("http", null);
+    }
+
+    /**
+     * Test computing a URL string with a blank host.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_host_blank() {
+        UrlUtils.computeUrlString("ftp:", "    ");
+    }
+
+    /**
+     * Test computing a URL string with an empty host.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeUrlString_host_empty() {
+        UrlUtils.computeUrlString("https", "");
+    }
+
+    /**
+     * Test computing a URL string.
      */
     @Test
-    public void test_computeHostUrlAsString() throws IOException {
-        Assert.assertEquals("Should have created a url", "http://foo.com", UrlUtils.computeHostUrlAsString("http://foo.com/bar/alpha"));
+    public void test_computeUrlString() {
+        final String host = TestUtils.generateUniqueStr("foo");
+
+        final String urlString = UrlUtils.computeUrlString("https", host);
+
+        Assert.assertEquals("Should be correct URL", "https://" + host, urlString);
+    }
+
+    /**
+     * Test computing a protocol and host string with a null url.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeProtocolAndHostString_url_null() {
+        UrlUtils.computeProtocolAndHostString((URL) null);
+    }
+
+    /**
+     * Test computing a protocol and host string.
+     */
+    @Test
+    public void test_computeProtocolAndHostString_url() throws MalformedURLException {
+        final URL url = new URL("http://foo.com:80/alpha/beta/theta");
+        final String toCompare = UrlUtils.computeProtocolAndHostString(url);
+
+        Assert.assertEquals("Should be the correct string", "http://foo.com", toCompare);
     }
 
     /**
      * Tests computing the host URL with a null.
      */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeProtocolAndHostString_rawUrlStr_null() {
+        UrlUtils.computeProtocolAndHostString((String) null);
+    }
+
+    /**
+     * Tests computing the host URL with an empty string.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeProtocolAndHostString_rawUrlStr_empty() {
+        UrlUtils.computeProtocolAndHostString("");
+    }
+
+    /**
+     * Tests computing the host URL with a blank string.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeProtocolAndHostString_rawUrlStr_blank() {
+        UrlUtils.computeProtocolAndHostString("  ");
+    }
+
+    /**
+     * Tests computing the host URL with a malformed string.
+     */
     @Test(expected = UrlException.class)
+    public void test_computeProtocolAndHostString_rawUrlStr_malformed() {
+        UrlUtils.computeProtocolAndHostString("ht://foo .com");
+    }
+
+    /**
+     * Tests computing the host URL.
+     */
+    @Test
+    public void test_computeProtocolAndHostString_rawUrlStr() {
+        Assert.assertEquals("Should be the correct url", "http://foo.com", UrlUtils.computeProtocolAndHostString("http://foo.com/alpha/beta/theta.txt"));
+    }
+
+    /**
+     * Tests computing the host URL with a null.
+     */
+    @Test(expected = IllegalArgumentException.class)
     public void test_computeHostUrl_null() {
         UrlUtils.computeHostUrl(null);
     }
@@ -120,9 +212,17 @@ public class UrlUtilsTest {
     /**
      * Tests computing the host URL with an empty string.
      */
-    @Test(expected = UrlException.class)
-    public void test_computeHostUrl_emptyString() {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeHostUrl_empty() {
         UrlUtils.computeHostUrl("");
+    }
+
+    /**
+     * Tests computing the host URL with a blank string.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_computeHostUrl_blank() {
+        UrlUtils.computeHostUrl("     ");
     }
 
     /**

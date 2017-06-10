@@ -25,8 +25,7 @@ import org.flossware.jcore.utils.collections.ArrayUtils;
  *
  * @author Scot P. Floess
  */
-public class StringUtils {
-
+public final class StringUtils {
     /**
      * Our logger.
      */
@@ -38,7 +37,6 @@ public class StringUtils {
     private static Logger getLogger() {
         return logger;
     }
-
     /**
      * Default separator.
      */
@@ -58,7 +56,7 @@ public class StringUtils {
     /**
      * Checks <code>str</code> to ensureObject it is not null nor empty.
      *
-     * @param str The string to inspect to ensureObject its not null nor empty.
+     * @param str      The string to inspect to ensureObject its not null nor empty.
      * @param errorMsg The error message within the raised exception if <code>str</code> is null or empty.
      *
      * @return str if it is not null or empty.
@@ -91,7 +89,7 @@ public class StringUtils {
      * length - 2.
      *
      * @param index the place within the array we are processing.
-     * @param objs the array of objects being processed.
+     * @param objs  the array of objects being processed.
      *
      * @return true if we can append a separator or false if not.
      */
@@ -103,8 +101,8 @@ public class StringUtils {
      * Concat objects together and return the toString of the concatenation.
      *
      * @param isSeparatorAtEnd if true denotes we will always have the separator appended.
-     * @param separator the separator to use between concatenation.
-     * @param objs the objects to concatenate.
+     * @param separator        the separator to use between concatenation.
+     * @param objs             the objects to concatenate.
      *
      * @return the string representation of the concatenation.
      */
@@ -136,7 +134,7 @@ public class StringUtils {
      * Concat objects together and return the toString of the concatenation.
      *
      * @param separator the separator to use between concatenation.
-     * @param objs the objects to concatenate.
+     * @param objs      the objects to concatenate.
      *
      * @return the string representation of the concatenation.
      */
@@ -153,6 +151,22 @@ public class StringUtils {
      */
     public static String concat(Object... objs) {
         return concatWithSeparator(DEFAULT_SEPARATOR, objs);
+    }
+
+    /**
+     * Return true if <code>str</code> contains <code>contains</code>.
+     *
+     * @param str      is the string to examine for containing <code>contains</code>.
+     * @param contains is the string to see if <code>str</code> is contained.
+     *
+     * @return true if <code>str</code> contains <code>contains</code>.
+     */
+    public static boolean isContained(final String str, final String contains) {
+        final boolean retVal = (null == str) ? false : str.contains(contains);
+
+        LoggerUtils.log(getLogger(), Level.FINEST, "Exception messsage contained result [{0}] for [{1}] message [{2}]", retVal, contains, str);
+
+        return retVal;
     }
 
     /**

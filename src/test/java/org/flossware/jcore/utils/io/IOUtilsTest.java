@@ -42,7 +42,7 @@ public class IOUtilsTest {
      */
     @Test
     public void testConstructor() throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        final Constructor constructor = IOUtils.class.getDeclaredConstructor();
+        final Constructor constructor = IoUtils.class.getDeclaredConstructor();
         constructor.setAccessible(true);
         constructor.newInstance(new Object[0]);
     }
@@ -52,7 +52,7 @@ public class IOUtilsTest {
      */
     @Test
     public void test_close_null() {
-        IOUtils.close(null);
+        IoUtils.close(null);
     }
 
     /**
@@ -64,7 +64,7 @@ public class IOUtilsTest {
     public void test_close_IOException() throws IOException {
         Mockito.doThrow(new IOException()).when(closeable).close();
 
-        IOUtils.close(closeable);
+        IoUtils.close(closeable);
 
         Mockito.verify(closeable).close();
     }
@@ -74,7 +74,7 @@ public class IOUtilsTest {
      */
     @Test
     public void test_close() throws IOException {
-        IOUtils.close(closeable);
+        IoUtils.close(closeable);
 
         Mockito.verify(closeable).close();
     }
@@ -84,7 +84,7 @@ public class IOUtilsTest {
      */
     @Test
     public void test_closeQuietly_null() {
-        IOUtils.closeQuietly(null);
+        IoUtils.closeQuietly(null);
     }
 
     /**
@@ -96,7 +96,7 @@ public class IOUtilsTest {
     public void test_closeQuietly_IOException() throws IOException {
         Mockito.doThrow(new IOException()).when(closeable).close();
 
-        IOUtils.closeQuietly(closeable);
+        IoUtils.closeQuietly(closeable);
 
         Mockito.verify(closeable).close();
     }
@@ -106,7 +106,7 @@ public class IOUtilsTest {
      */
     @Test
     public void test_closeQuietly() throws IOException {
-        IOUtils.closeQuietly(closeable);
+        IoUtils.closeQuietly(closeable);
 
         Mockito.verify(closeable).close();
     }

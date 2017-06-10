@@ -16,6 +16,7 @@
  */
 package org.flossware.jcore.io;
 
+import org.flossware.jcore.utils.net.UrlException;
 import org.flossware.jcore.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;

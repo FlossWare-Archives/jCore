@@ -20,11 +20,11 @@ import java.util.Map;
 import org.flossware.jcore.utils.ObjectUtils;
 
 /**
+ * Map utility class.
  *
  * @author flossware
  */
 public class MapUtils {
-
     /**
      * Default minimum size for a map.
      */
@@ -95,6 +95,9 @@ public class MapUtils {
 
     /**
      * Ensures map is not empty or null.
+     *
+     * @param <K> key type.
+     * @param <V> value type.
      *
      * @param map to check for null/empty.
      *

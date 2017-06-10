@@ -51,7 +51,7 @@ public class ExceptionUtilsTest {
     }
 
     /**
-     * Tests of contains is processable.
+     * Tests of containsThrowable is processable.
      */
     @Test
     public void test_isContainsProcessable() {
@@ -65,34 +65,70 @@ public class ExceptionUtilsTest {
      * Tests containing a throwable via its class.
      */
     @Test
-    public void tests_contains_class() {
-        Assert.assertFalse("Should not contain the exception", ExceptionUtils.contains(new RuntimeException(), NullPointerException.class));
-        Assert.assertFalse("Should not contain the exception", ExceptionUtils.contains(new RuntimeException(new IllegalArgumentException()), NullPointerException.class));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new RuntimeException(), RuntimeException.class));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new NullPointerException(), RuntimeException.class));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new TestException(new IOException()), TestException.class));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new TestException(new TestException(new IOException())), IOException.class));
+    public void test_contains_class() {
+        Assert.assertFalse("Should not contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(), NullPointerException.class));
+        Assert.assertFalse("Should not contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(new IllegalArgumentException()), NullPointerException.class));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(), RuntimeException.class));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new NullPointerException(), RuntimeException.class));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new TestException(new IOException()), TestException.class));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new TestException(new TestException(new IOException())), IOException.class));
     }
 
     /**
      * Tests containing a throwable via instance.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void tests_contains_throwable_null() {
-        ExceptionUtils.contains(new RuntimeException(), (Throwable) null);
+    public void test_contains_throwable_null() {
+        ExceptionUtils.containsThrowable(new RuntimeException(), (Throwable) null);
     }
 
     /**
      * Tests containing a throwable via instance.
      */
     @Test
-    public void tests_contains_throwable() {
-        Assert.assertFalse("Should not contain the exception", ExceptionUtils.contains(new RuntimeException(), new NullPointerException()));
-        Assert.assertFalse("Should not contain the exception", ExceptionUtils.contains(new RuntimeException(new IllegalArgumentException()), new NullPointerException()));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new RuntimeException(), new RuntimeException()));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new NullPointerException(), new RuntimeException()));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new TestException(new IOException()), new TestException()));
-        Assert.assertTrue("Should contain the exception", ExceptionUtils.contains(new TestException(new TestException(new IOException())), new IOException()));
+    public void test_contains_throwable() {
+        Assert.assertFalse("Should not contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(), new NullPointerException()));
+        Assert.assertFalse("Should not contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(new IllegalArgumentException()), new NullPointerException()));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new RuntimeException(), new RuntimeException()));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new NullPointerException(), new RuntimeException()));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new TestException(new IOException()), new TestException()));
+        Assert.assertTrue("Should contain the exception", ExceptionUtils.containsThrowable(new TestException(new TestException(new IOException())), new IOException()));
+    }
 
+    /**
+     * Tests if a null exception message is contained.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_isExceptionMsgContained_msg_null() {
+        ExceptionUtils.isExceptionMsgContained(new Throwable(), null);
+    }
+
+    /**
+     * Tests if a blank exception message is contained.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_isExceptionMsgContained_msg_blank() {
+        ExceptionUtils.isExceptionMsgContained(new Throwable(), "    ");
+    }
+ 
+    /**
+     * Tests if an empty exception message is contained.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_isExceptionMsgContained_msg_empty() {
+        ExceptionUtils.isExceptionMsgContained(new Throwable(), "");
+    }
+    
+    /**
+     * Tests if an exception message is contained.
+     */
+    @Test
+    public void test_isExceptionMsgContained() {
+        Assert.assertFalse("Should not contain the message", ExceptionUtils.isExceptionMsgContained(new NullPointerException("alpha"), "foo"));
+        Assert.assertTrue("Should contain the message", ExceptionUtils.isExceptionMsgContained(new NullPointerException("alpha"), "alpha"));
+        
+        final InvocationTargetException ite = new InvocationTargetException(new RuntimeException("beta"), "alpha");
+        Assert.assertFalse("Should not contain the message", ExceptionUtils.isExceptionMsgContained(ite, "alpha"));
+        Assert.assertTrue("Should contain the message", ExceptionUtils.isExceptionMsgContained(ite, "beta"));
     }
 }

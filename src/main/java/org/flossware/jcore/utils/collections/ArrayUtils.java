@@ -24,7 +24,6 @@ import org.flossware.jcore.utils.ObjectUtils;
  * @author flossware
  */
 public class ArrayUtils {
-
     /**
      * Default minimum size for an array.
      */
@@ -33,10 +32,11 @@ public class ArrayUtils {
     /**
      * Ensure an array has something in it.
      *
-     * @param <V> the type of array.
-     * @param values represents the array to ensureObject there are value or has at least one element.
+     * @param <V>       the type of array.
+     *
+     * @param values    represents the array to ensureObject there are value or has at least one element.
      * @param minLength the minimum number of elements in the array.
-     * @param errorMsg is the message of the IllegalArgumentException if raised.
+     * @param errorMsg  is the message of the IllegalArgumentException if raised.
      *
      * @return values if not null, contains at least one element and each element is not null.
      *
@@ -59,8 +59,9 @@ public class ArrayUtils {
     /**
      * Ensure an array has something in it.
      *
-     * @param <V> the type of array.
-     * @param values represents the array to ensureObject there are value or has at least one element.
+     * @param <V>       the type of array.
+     *
+     * @param values    represents the array to ensureObject there are value or has at least one element.
      * @param minLength the minimum number of elements in the array.
      *
      * @return values if not null, contains at least one element and each element is not null.
@@ -74,7 +75,9 @@ public class ArrayUtils {
     /**
      * Ensure an array has something in it.
      *
-     * @param values represents the array to ensureObject there are value or has at least one element.
+     * @param <V>      the type for the elements of the array.
+     *
+     * @param values   represents the array to ensureObject there are value or has at least one element.
      * @param errorMsg is the message of the IllegalArgumentException if raised.
      *
      * @return values if not null, contains at least one element and each element is not null.
@@ -87,6 +90,8 @@ public class ArrayUtils {
 
     /**
      * Ensure an array has something in it.
+     *
+     * @param <V>    the type for the elements of the array.
      *
      * @param values represents the array to ensureObject there are value or has at least one element.
      *
@@ -101,12 +106,12 @@ public class ArrayUtils {
     /**
      * See if a collection meets a filter.
      *
-     * @param <T> the type within the collection to search.
-     * @param <V> the value to search for within the collection.
+     * @param <T>      the type within the collection to search.
+     * @param <V>      the value to search for within the collection.
      *
      * @param toSearch the collection to iterate over to see if it contains a value.
-     * @param filter the filter to apply to each object.
-     * @param value using filter, determining if it is contained in <code>toSearch</code>.
+     * @param filter   the filter to apply to each object.
+     * @param value    using filter, determining if it is contained in <code>toSearch</code>.
      *
      * @return true if the collection meets the filter or false if not.
      */

@@ -20,8 +20,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.flossware.jcore.io.UrlException;
 import org.flossware.jcore.utils.LoggerUtils;
+import org.flossware.jcore.utils.ObjectUtils;
 import org.flossware.jcore.utils.StringUtils;
 
 /**
@@ -55,15 +55,19 @@ public class UrlUtils {
     /**
      * Converts <code>rawURL</code> to a URL.
      *
-     * @param rawUrl the complete raw URL (including any additional paths).
+     * @param rawUrlStr the complete raw URL (including any additional paths).
      *
      * @return a URL.
      *
      * @throws UrlException if computing the URL fails.
      */
-    public static URL createUrl(final String rawUrl) {
+    public static URL createUrl(final String rawUrlStr) {
         try {
-            return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "URL [{0}] for string [{1}]", new URL(rawUrl), rawUrl);
+            URL retVal = new URL(rawUrlStr);
+
+            LoggerUtils.log(getLogger(), Level.FINEST, "URL [{0}] for string [{1}]", retVal, rawUrlStr);
+
+            return retVal;
         } catch (final MalformedURLException malformedUrlException) {
             getLogger().log(Level.SEVERE, "Trouble getting protocol and host [{0}]", malformedUrlException.getMessage());
 
@@ -72,29 +76,75 @@ public class UrlUtils {
     }
 
     /**
+     * Using protocol and host, return a URL string in the form of [protocol]://[host].
+     *
+     * @param protocol the web protocol like https.
+     * @param host     the host being called.
+     *
+     * @return a URL in the form of [protocol]://[host]..
+     */
+    static String computeUrlString(final String protocol, final String host) {
+        StringUtils.ensureString(protocol, "Must provide a protocol!");
+        StringUtils.ensureString(host, "Must provide a host!");
+
+        final String retVal = StringUtils.concat(protocol, PROTOCOL_SEPARATOR, host);
+
+        LoggerUtils.log(getLogger(), Level.FINEST, "Computed URL [{0}]", retVal);
+
+        return retVal;
+    }
+
+    /**
+     * Using <code>url</code>, compute the protocol and host portion as a string.
+     *
+     * @param url the url to convert.
+     *
+     * @return the protocol and host portion of <code>url</code> as a string.
+     */
+    static String computeProtocolAndHostString(final URL url) {
+        ObjectUtils.ensureObject(url, "Must provide a url!");
+
+        final String retVal = computeUrlString(url.getProtocol(), url.getHost());
+
+        LoggerUtils.log(getLogger(), Level.FINEST, "Computed URL [{0}]", retVal);
+
+        return retVal;
+    }
+
+    /**
      * Taking the <code>rawURL</code>, will return the URL for just the server.
      *
-     * @param rawUrl The complete raw URL (including any additional paths).
+     * @param rawUrlStr The complete raw URL (including any additional paths).
      *
      * @return the server's URL including protocol.
      *
      * @throws IllegalArgumentException if computing the URL fails.
      */
-    public static String computeHostUrlAsString(final String rawUrl) {
-        final URL url = createUrl(rawUrl);
+    public static String computeProtocolAndHostString(final String rawUrlStr) {
+        StringUtils.ensureString(rawUrlStr, "Must provide a URL string!");
 
-        return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "String URL [{0}] for raw string [{1}]", StringUtils.concat(url.getProtocol(), PROTOCOL_SEPARATOR, url.getHost()), rawUrl);
+        final String retVal = computeProtocolAndHostString(createUrl(rawUrlStr));
+
+        LoggerUtils.log(getLogger(), Level.FINEST, "String URL [{0}] for raw string [{1}]", retVal, rawUrlStr);
+
+        return retVal;
     }
 
     /**
-     * Using <code>rawUrl</code>, convert to protocol and host version.
+     * Using <code>rawUrlStr</code>, convert to protocol and host version.
      *
-     * @param rawUrl the raw URL to convert.
+     * @param rawUrlStr the raw URL to convert.
      *
      * @return a URL representation of only protocol and host.
      */
-    public static URL computeHostUrl(final String rawUrl) {
-        return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Host URL [{0}] for raw string [{1}]", createUrl(computeHostUrlAsString(rawUrl)), rawUrl);
+    public static URL computeHostUrl(final String rawUrlStr) {
+        StringUtils.ensureString(rawUrlStr, "Must provide a URL string!");
+
+        final URL retVal = createUrl(computeProtocolAndHostString(rawUrlStr));
+
+        LoggerUtils.log(getLogger(), Level.FINEST, "Host URL [{0}] for raw string [{1}]", retVal, rawUrlStr);
+
+        return retVal;
     }
 
     /**

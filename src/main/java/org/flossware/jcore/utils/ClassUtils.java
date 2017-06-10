@@ -21,7 +21,7 @@ package org.flossware.jcore.utils;
  *
  * @author sfloess
  */
-public class ClassUtils {
+public final class ClassUtils {
 
     /**
      * Compute the package for klass.
@@ -37,7 +37,7 @@ public class ClassUtils {
     /**
      * Return the class for object.
      *
-     * @param <T> the type of class.
+     * @param <T>    the type of class.
      * @param object the object for whom we desire a class.
      *
      * @return the class for object.

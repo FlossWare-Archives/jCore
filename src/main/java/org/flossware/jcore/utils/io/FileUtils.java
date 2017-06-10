@@ -19,7 +19,9 @@ package org.flossware.jcore.utils.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import org.flossware.jcore.io.FileException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.flossware.jcore.utils.LoggerUtils;
 import org.flossware.jcore.utils.ObjectUtils;
 import org.flossware.jcore.utils.StringUtils;
 
@@ -28,7 +30,26 @@ import org.flossware.jcore.utils.StringUtils;
  *
  * @author Scot P. Floess
  */
-public class FileUtils {
+public final class FileUtils {
+    /**
+     * Our logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
+
+    /**
+     * Default constructor not allowed.
+     */
+    private FileUtils() {
+    }
+
+    /**
+     * Return the logger.
+     *
+     * @return our logger.
+     */
+    static Logger getLogger() {
+        return LOGGER;
+    }
 
     /**
      * Return a file input stream for file.
@@ -38,12 +59,13 @@ public class FileUtils {
      * @return a file input stream.
      *
      * @throws IllegalArgumentException if file is null.
-     * @throws FileException if there is any problem creating the file input stream.
+     * @throws FileException            if there is any problem creating the file input stream.
      */
     public static FileInputStream getFileInputStream(final File file) {
         try {
             return new FileInputStream(ObjectUtils.ensureObject(file, "Cannot have a null file!"));
         } catch (final FileNotFoundException fileNotFoundException) {
+            LoggerUtils.log(getLogger(), Level.WARNING, fileNotFoundException, "File [{0}] not found", file);
             throw new FileException(fileNotFoundException);
         }
     }
@@ -56,15 +78,9 @@ public class FileUtils {
      * @return a file input stream.
      *
      * @throws IllegalArgumentException if fileName is null or empty.
-     * @throws FileException if there is any problem creating the file input stream.
+     * @throws FileException            if there is any problem creating the file input stream.
      */
     public static FileInputStream getFileInputStream(final String fileName) {
         return getFileInputStream(new File(StringUtils.ensureString(fileName, "Cannot have a null or empty file name!")));
-    }
-
-    /**
-     * Default constructor not allowed.
-     */
-    private FileUtils() {
     }
 }

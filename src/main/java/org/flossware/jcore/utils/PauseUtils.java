@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author Scot P. Floess
  */
-public class PauseUtils {
+public final class PauseUtils {
     /**
      * When we need a random pause time, use this to generate a random time to wait.
      */

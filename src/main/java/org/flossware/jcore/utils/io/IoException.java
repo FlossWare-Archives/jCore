@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.flossware.jcore.io;
+package org.flossware.jcore.utils.io;
 
 /**
  * Raised if any IO problems arise.

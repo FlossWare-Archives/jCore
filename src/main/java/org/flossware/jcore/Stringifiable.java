@@ -8,11 +8,10 @@ package org.flossware.jcore;
  *
  */
 public interface Stringifiable {
-
     /**
      * A default prefix to use.
      */
-    static final String DEFAULT_PREFIX = "    ";
+    String DEFAULT_PREFIX = "    ";
 
     /**
      * Using <code>stringBuilder</code>, compute the string representation of self whose prefix for computation is

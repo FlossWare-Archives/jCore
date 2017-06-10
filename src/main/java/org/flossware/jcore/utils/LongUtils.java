@@ -7,12 +7,12 @@ package org.flossware.jcore.utils;
  * @author sfloess
  *
  */
-public class LongUtils {
+public final class LongUtils {
 
     /**
      * Ensure a value is no greater than a maximum.
      *
-     * @param value is the value to compare.
+     * @param value    is the value to compare.
      * @param maxValue is the maximum that value can be.
      * @param errorMsg is the message within the IllegalArgumentException if value less than maxValue.
      *
@@ -31,7 +31,7 @@ public class LongUtils {
     /**
      * Ensure a value is no greater than a maximum.
      *
-     * @param value is the value to compare.
+     * @param value    is the value to compare.
      * @param maxValue is the maximum that value can be.
      *
      * @return value if value is less than maxValue.
@@ -45,7 +45,7 @@ public class LongUtils {
     /**
      * Ensure a value is no less than a minimum.
      *
-     * @param value is the value to compare.
+     * @param value    is the value to compare.
      * @param minValue is the minimum that value can be.
      * @param errorMsg is the message within the IllegalArgumentException if value greater than minValue.
      *
@@ -64,7 +64,7 @@ public class LongUtils {
     /**
      * Ensure a value is no less than a minimum.
      *
-     * @param value is the value to compare.
+     * @param value    is the value to compare.
      * @param minValue is the minimum that value can be.
      *
      * @return value if value is greater than or equal to minValue.
