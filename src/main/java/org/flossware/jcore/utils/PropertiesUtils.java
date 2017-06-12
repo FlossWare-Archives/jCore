@@ -105,4 +105,8 @@ public final class PropertiesUtils {
             throw new IoException(fileNotFoundException);
         }
     }
+
+    public static Properties createProperties(final String resource) {
+        return createProperties(PropertiesUtils.class.getResourceAsStream(resource), true);
+    }
 }
