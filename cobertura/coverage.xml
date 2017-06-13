@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.8894472361809045" branch-rate="0.9134615384615384" lines-covered="531" lines-valid="597" branches-covered="95" branches-valid="104" complexity="1.3568773234200744" version="2.1.1" timestamp="1497311944935">
+<coverage line-rate="0.8820598006644518" branch-rate="0.8962264150943396" lines-covered="531" lines-valid="602" branches-covered="95" branches-valid="106" complexity="1.3616236162361623" version="2.1.1" timestamp="1497316244852">
 	<sources>
 		<source>/var/lib/openshift/540b2c664382ec0a4f000622/app-root/data/workspace/FlossWare-jCore/target/generated-sources/annotations</source>
 		<source>--source</source>
@@ -2302,7 +2302,7 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.flossware.jcore.utils.io" line-rate="1.0" branch-rate="1.0" complexity="1.5625">
+		<package name="org.flossware.jcore.utils.io" line-rate="0.8958333333333334" branch-rate="0.6666666666666666" complexity="1.6111111111111112">
 			<classes>
 				<class name="org.flossware.jcore.utils.io.FileException" filename="org/flossware/jcore/utils/io/FileException.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -2342,7 +2342,7 @@
 						<line number="59" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.flossware.jcore.utils.io.FileUtils" filename="org/flossware/jcore/utils/io/FileUtils.java" line-rate="1.0" branch-rate="1.0" complexity="1.75">
+				<class name="org.flossware.jcore.utils.io.FileUtils" filename="org/flossware/jcore/utils/io/FileUtils.java" line-rate="0.6428571428571429" branch-rate="0.0" complexity="1.8333333333333333">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -2353,6 +2353,23 @@
 							<lines>
 								<line number="42" hits="1" branch="false"/>
 								<line number="43" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="ensureFile" signature="(Ljava/io/File;)Ljava/io/File;" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="97" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="100" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="ensureFile" signature="(Ljava/lang/String;)Ljava/io/File;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="116" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getFileInputStream" signature="(Ljava/io/File;)Ljava/io/FileInputStream;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2384,6 +2401,15 @@
 						<line number="68" hits="2" branch="false"/>
 						<line number="69" hits="2" branch="false"/>
 						<line number="84" hits="3" branch="false"/>
+						<line number="97" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="100" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="116" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.flossware.jcore.utils.io.IoException" filename="org/flossware/jcore/utils/io/IoException.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
