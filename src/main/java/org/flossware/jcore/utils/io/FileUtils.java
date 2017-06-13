@@ -83,4 +83,36 @@ public final class FileUtils {
     public static FileInputStream getFileInputStream(final String fileName) {
         return getFileInputStream(new File(StringUtils.ensureString(fileName, "Cannot have a null or empty file name!")));
     }
+
+    /**
+     * Ensures a file exists.
+     *
+     * @param file the file to determine if it exists.
+     *
+     * @return file if it exists.
+     *
+     * @throws IllegalArgumentException if file does not exist.
+     */
+    public static File ensureFile(final File file) {
+        ObjectUtils.ensureObject(file, "Cannot ensure a null file!");
+
+        if (!file.exists()) {
+            throw new IllegalArgumentException(file + " does not exist!");
+        }
+
+        return file;
+    }
+
+    /**
+     * Ensures a file exists.
+     *
+     * @param file the file to determine if it exists.
+     *
+     * @return file if it exists.
+     *
+     * @throws IllegalArgumentException if file does not exist.
+     */
+    public static File ensureFile(final String file) {
+        return ensureFile(new File(StringUtils.ensureString(file, "Cannot ensure an empty file name!")));
+    }
 }
