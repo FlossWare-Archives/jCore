@@ -98,6 +98,38 @@ public final class StringUtils {
     }
 
     /**
+     * Concat objects together in <code>stringBuilder</code> using the toString of the <code>objs</code>.
+     *
+     * @param stringBuilder    the string builder form whom we will concatenate.
+     * @param isSeparatorAtEnd if true denotes we will always have the separator appended.
+     * @param separator        the separator to use between concatenation.
+     * @param objs             the objects to concatenate.
+     *
+     * @return the string builder with concatendated data.
+     */
+    public static StringBuilder concatWithSeparator(final StringBuilder stringBuilder, final boolean isSeparatorAtEnd, final String separator, Object... objs) {
+        ArrayUtils.ensureArray(objs, "Must have a list of objects to concat!");
+
+        if (objs.length < 2 && !isSeparatorAtEnd) {
+            return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}] for length [{1}] and isSeparatorAtEnd [{2}]", objs[0].toString(), objs.length, isSeparatorAtEnd);
+        }
+
+        for (int index = 0; index < objs.length; index++) {
+            stringBuilder.append(objs[index]);
+
+            if (isSeparatorAppendable(separator, index, objs)) {
+                stringBuilder.append(separator);
+            }
+        }
+
+        if (isSeparatorAtEnd) {
+            stringBuilder.append(separator);
+        }
+
+        return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}]", stringBuilder);
+    }
+
+    /**
      * Concat objects together and return the toString of the concatenation.
      *
      * @param isSeparatorAtEnd if true denotes we will always have the separator appended.
@@ -107,27 +139,20 @@ public final class StringUtils {
      * @return the string representation of the concatenation.
      */
     public static String concatWithSeparator(final boolean isSeparatorAtEnd, final String separator, Object... objs) {
-        ArrayUtils.ensureArray(objs, "Must have a list of objects to concat!");
+        return concatWithSeparator(new StringBuilder(), isSeparatorAtEnd, separator, objs).toString();
+    }
 
-        if (objs.length < 2 && !isSeparatorAtEnd) {
-            return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}] for length [{1}] and isSeparatorAtEnd [{2}]", objs[0].toString(), objs.length, isSeparatorAtEnd);
-        }
-
-        final StringBuilder sb = new StringBuilder();
-
-        for (int index = 0; index < objs.length; index++) {
-            sb.append(objs[index]);
-
-            if (isSeparatorAppendable(separator, index, objs)) {
-                sb.append(separator);
-            }
-        }
-
-        if (isSeparatorAtEnd) {
-            sb.append(separator);
-        }
-
-        return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}]", sb.toString());
+    /**
+     * Concat objects together in <code>stringBuilder</code> using the toString of the <code>objs</code>.
+     *
+     * @param stringBuilder the string builder form whom we will concatenate.
+     * @param separator     the separator to use between concatenation.
+     * @param objs          the objects to concatenate.
+     *
+     * @return the string representation of the concatenation.
+     */
+    public static StringBuilder concatWithSeparator(final StringBuilder stringBuilder, final String separator, Object... objs) {
+        return concatWithSeparator(stringBuilder, false, separator, objs);
     }
 
     /**
@@ -140,6 +165,18 @@ public final class StringUtils {
      */
     public static String concatWithSeparator(final String separator, Object... objs) {
         return concatWithSeparator(false, separator, objs);
+    }
+
+    /**
+     * Concat objects together in <code>stringBuilder</code> using the toString of the <code>objs</code>.
+     *
+     * @param stringBuilder the string builder form whom we will concatenate.
+     * @param objs          the objects to concatenate.
+     *
+     * @return the string representation of the concatenation.
+     */
+    public static StringBuilder concat(final StringBuilder stringBuilder, Object... objs) {
+        return concatWithSeparator(stringBuilder, DEFAULT_SEPARATOR, objs);
     }
 
     /**

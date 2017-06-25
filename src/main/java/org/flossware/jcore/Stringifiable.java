@@ -8,6 +8,10 @@ package org.flossware.jcore;
  *
  */
 public interface Stringifiable {
+    String LINE_SEPARATOR_PROPERTY = "line.separator";
+
+    String LINE_SEPARATOR_STRING = System.getProperty(LINE_SEPARATOR_PROPERTY);
+
     /**
      * A default prefix to use.
      */

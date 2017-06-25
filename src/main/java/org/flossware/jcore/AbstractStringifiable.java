@@ -1,5 +1,7 @@
 package org.flossware.jcore;
 
+import org.flossware.jcore.utils.StringUtils;
+
 /**
  *
  * Default abstract base class of stringifiables.
@@ -8,14 +10,14 @@ package org.flossware.jcore;
  *
  */
 public abstract class AbstractStringifiable extends AbstractCommonBase implements Stringifiable {
-
-    public static final String LINE_SEPARATOR_PROPERTY = "line.separator";
-    public static final String LINE_SEPARATOR_STRING = System.getProperty(LINE_SEPARATOR_PROPERTY);
-
     /**
      * Default constructor.
      */
     protected AbstractStringifiable() {
+    }
+
+    protected StringBuilder appendLine(final StringBuilder stringBuilder, final String... line) {
+        return StringUtils.concat(stringBuilder, line).append(LINE_SEPARATOR_STRING);
     }
 
     /**
