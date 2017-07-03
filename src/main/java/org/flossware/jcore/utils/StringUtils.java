@@ -110,10 +110,6 @@ public final class StringUtils {
     public static StringBuilder concatWithSeparator(final StringBuilder stringBuilder, final boolean isSeparatorAtEnd, final String separator, Object... objs) {
         ArrayUtils.ensureArray(objs, "Must have a list of objects to concat!");
 
-        if (objs.length < 2 && !isSeparatorAtEnd) {
-            return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}] for length [{1}] and isSeparatorAtEnd [{2}]", objs[0].toString(), objs.length, isSeparatorAtEnd);
-        }
-
         for (int index = 0; index < objs.length; index++) {
             stringBuilder.append(objs[index]);
 
@@ -126,7 +122,9 @@ public final class StringUtils {
             stringBuilder.append(separator);
         }
 
-        return LoggerUtils.logAndReturn(getLogger(), Level.FINEST, "Returning [{0}]", stringBuilder);
+        LoggerUtils.log(getLogger(), Level.FINEST, "Returning [{0}]", stringBuilder);
+
+        return stringBuilder;
     }
 
     /**
