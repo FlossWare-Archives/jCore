@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="606" branches-covered="0" branches-valid="102" complexity="1.3454545454545455" version="2.1.1" timestamp="1560054139237">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="606" branches-covered="0" branches-valid="102" complexity="1.3454545454545455" version="2.1.1" timestamp="1562789002229">
 	<sources>
-		<source>/home/jenkins/workspace/FlossWare-jCore/src/main/java</source>
-		<source>/home/jenkins/workspace/FlossWare-jCore/target/generated-sources/annotations</source>
+		<source>/var/lib/jenkins/workspace/FlossWare-jCore/src/main/java</source>
+		<source>/var/lib/jenkins/workspace/FlossWare-jCore/target/generated-sources/annotations</source>
 		<source>--source</source>
 	</sources>
 	<packages>
